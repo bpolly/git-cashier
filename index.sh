@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # set -x
 git_branches(){
@@ -7,10 +7,6 @@ git_branches(){
 
 title="Select example"
 prompt="Pick an option:"
-# options=("A" "B" "C")
-# options=$(echo "$(git for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)')
-# options=$(echo $(gb) | for ELEMENT in $(xargs); do echo File: $ELEMENT.;done)
-options=$(echo "$(git_branches)")
 echo "$title"
 PS3="$prompt "
 select opt in $(git_branches) "Quit"; do 
@@ -19,22 +15,20 @@ select opt in $(git_branches) "Quit"; do
 
     1 )
         # echo "You picked $opt which is option $REPLY";
-        echo "Checking out branch $opt";
-        $(git checkout "$opt");
+        (git checkout "$opt");
         break;;
     2 ) 
         # echo "You picked $opt which is option $REPLY";
-        echo "Checking out branch $opt";
-        $(git checkout "$opt");
+        (git checkout "$opt");
         break;;
     3 ) 
-        echo "You picked $opt which is option $REPLY";
+        (git checkout "$opt");
         break;;
     4 ) 
-        echo "You picked $opt which is option $REPLY";
+        (git checkout "$opt");
         break;;
     5 ) 
-        echo "You picked $opt which is option $REPLY";
+        (git checkout "$opt");
         break;;
 
     $(( ${#options[@]}+1 )) ) 
