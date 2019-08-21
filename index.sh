@@ -1,12 +1,12 @@
 #!/bin/sh
-
 # set -x
+
 git_branches(){
     git for-each-ref --count=5 --sort=-committerdate refs/heads/ --format='%(refname:short)'
 }
 
-title="Select example"
-prompt="Pick an option:"
+title="=== Most Recent Git Branches ==="
+prompt="Choose a branch:"
 echo "$title"
 PS3="$prompt "
 select opt in $(git_branches) "Quit"; do 
@@ -40,17 +40,3 @@ select opt in $(git_branches) "Quit"; do
 
 done
 
-# select opt in "${options[@]}" "Quit"; do 
-
-#     case "$REPLY" in
-
-#     1 ) echo "You picked $opt which is option $REPLY";;
-#     2 ) echo "You picked $opt which is option $REPLY";;
-#     3 ) echo "You picked $opt which is option $REPLY";;
-
-#     $(( ${#options[@]}+1 )) ) echo "Goodbye!"; break;;
-#     *) echo "Invalid option. Try another one.";continue;;
-
-#     esac
-
-# done
