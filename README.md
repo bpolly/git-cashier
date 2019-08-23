@@ -17,3 +17,5 @@ MacOS
 ```bash
 brew install bpolly/tools/git-cashier
 ```
+
+Brew formula located at https://github.com/bpolly/homebrew-tools/blob/master/Formula/git-cashier.rb
