@@ -19,3 +19,7 @@ brew install bpolly/tools/git-cashier
 ```
 
 Brew formula located at https://github.com/bpolly/homebrew-tools/blob/master/Formula/git-cashier.rb
+
+## Contribution Instructions
+
+After merging changes into `master`, create a new release and upload the `vX.X.X.tar.gz` archive. Redownload the file locally from the same page and generate the SHA256 checksum for it by doing `shasum -a 256 git-cashier-X.X.X.tar.gz`. Update the formula with that checksum and the name of the local file you just downloaded.
