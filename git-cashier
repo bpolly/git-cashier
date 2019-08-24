@@ -8,6 +8,19 @@ git_branches(){
     git for-each-ref --count=$branch_count --sort=-committerdate refs/heads/ --format='%(refname:short)'
 }
 
+# Check for any config arguments
+while getopts 'n:' option
+do
+    case "${option}" in
+        n)
+            branch_count=${OPTARG};;
+        ?)
+            echo "script usage: $(basename $0) [-l] [-h] [-a somevalue]" >&2
+            exit 1
+            ;;
+    esac
+done
+
 title="=== Most Recent Git Branches ==="
 prompt="Choose a branch:"
 echo "$title"
