@@ -1,4 +1,5 @@
 #!/bin/sh
+VERSION="1.1.0"
 
 # Number of branches to list
 branch_count=5
@@ -8,17 +9,55 @@ git_branches(){
     git for-each-ref --count=$branch_count --sort=-committerdate refs/heads/ --format='%(refname:short)'
 }
 
-# Check for any config arguments
-while getopts 'n:' option
-do
-    case "${option}" in
-        n)
-            branch_count=${OPTARG};;
-        ?)
-            echo "script usage: $(basename $0) [-l] [-h] [-a somevalue]" >&2
+die() {
+    printf '%s\n' "$1" >&2
+    exit 1
+}
+
+display_usage() {
+  echo -n "git-cashier [OPTION]...
+
+Displays your most recent git branches with an option to easily check a new one out.
+
+ Options:
+  -n, --number    Number of branches to display [default=5]
+  -s, --sort      Git commit attribute to sort on [default=committerdate]
+  -h, --help        Display this help and exit
+      --version     Output version information and exit
+"
+}
+
+while :; do
+    case $1 in
+        -h|-\?|--help)
+            display_usage
+            exit
+            ;;
+        -v|--version)
+            printf '%s\n' "git-cashier $VERSION" >&2
+            exit
+            ;;
+        -n|--number)
+            if [ "$2" ]; then
+                branch_count=$2
+                shift
+            else
+                die 'ERROR: "--number" requires a non-empty option argument.'
+            fi
+            ;;
+        --)              # End of all options.
+            shift
+            break
+            ;;
+        -?*)
+            printf 'warn: unknown option: %s\n' "$1" >&2
             exit 1
             ;;
+        *)               # Default case: No more options, so break out of the loop.
+            break
     esac
+
+    shift
 done
 
 title="=== Most Recent Git Branches ==="
